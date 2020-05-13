@@ -74,3 +74,4 @@ Thumbs.db
 build-Apr21-Desktop-Debug
 *.autosave
 CMakeLists.txt.user
+bin
