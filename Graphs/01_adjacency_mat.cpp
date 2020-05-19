@@ -22,7 +22,8 @@ using std::vector;
 using namespace ALG;
 
 
-int main() {
+int main()
+{
 
     Graph<char> G;
     int n;

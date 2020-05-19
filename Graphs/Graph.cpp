@@ -18,16 +18,10 @@ template <class Type>
 const int Graph<Type>::MAX;
 
 template <class Type>
-Graph<Type>::Graph()
-{
-
-}
+Graph<Type>::Graph() {}
 
 template <class Type>
-Graph<Type>::~Graph()
-{
-
-}
+Graph<Type>::~Graph() {}
 
 template <class Type>
 void Graph<Type>::addNode(const Type& value)
@@ -38,7 +32,6 @@ void Graph<Type>::addNode(const Type& value)
         //Avoid duplicate nodes
         int newNodeNum = numNodes;
         numNodes++;
-
         for(int i = 0; i < numNodes; i++)
         {
             adjacencyMatrix[i][newNodeNum] = 0;
@@ -48,9 +41,8 @@ void Graph<Type>::addNode(const Type& value)
     }
 }
 
-
 template <class Type>
-void  Graph<Type>::addEdge(Type& source, Type& target, int weight)
+void  Graph<Type>::addEdge(const Type& source, const Type& target, int weight)
 {
     //in case target node doesn't exist, create it.
     int src{0}, dst{0};
@@ -59,18 +51,18 @@ void  Graph<Type>::addEdge(Type& source, Type& target, int weight)
     src = getIndex(source);
     dst = getIndex(target);
     assert(src < size() && dst < size());
-    adjacencyMatrix[src ][dst] = weight;
+    adjacencyMatrix[src][dst] = weight;
+    numEdges++;
 }
 
-
 template <class Type>
-void  Graph<Type>::addEdge(Type& source, Type& target)
+void  Graph<Type>::addEdge(const Type& source, const Type& target)
 {
     addEdge(source, target, 1);
 }
 
 template <class Type>
-int Graph<Type>::getIndex(const Type& value)
+int Graph<Type>::getIndex(const Type& value) const
 {
     for(int i = 0; i < numNodes; i++)
     {
@@ -87,26 +79,31 @@ Type& Graph<Type>::operator [](int node)
     return labels[node];
 }
 
-
 template <class Type>
-int Graph<Type>::size()
+int Graph<Type>::size() const
 {
     return numNodes;
 }
 
 template <class Type>
-int Graph<Type>::sizeMax()
+int Graph<Type>::sizeMax() const
 {
     return MAX;
 }
 
 template <class Type>
-void Graph<Type>::printAdjMat()
+int Graph<Type>::getNumEdges() const
+{
+    //undirected edges counted as two
+    return numEdges;
+}
+
+template <class Type>
+void Graph<Type>::printAdjMat() const
 {
     int col_margin{3};
     int n = size();
     std::string hl(col_margin*n*2-1, '-');
-
     std::cout << " ";
     for (int i = 0; i < n; i++)
     {
@@ -126,6 +123,21 @@ void Graph<Type>::printAdjMat()
         std::cout << std::setw(col_margin) << '|' << std::endl;
     }
     std::cout << std::setw(col_margin*(n*2 + 1)) << hl << std::endl;
+}
+
+template <class Type>
+std::vector<int> Graph<Type>::outAdjacentNodes(const Type& v) const
+{
+    std::vector<int> adj;
+    int vi = getIndex(v);
+    for(int i = 0; i < size(); i++)
+    {
+        if (adjacencyMatrix[vi][i] == 1)
+        {
+            adj.push_back(i);
+        }
+    }
+    return adj;
 }
 
 //Explicitly instantiate the template

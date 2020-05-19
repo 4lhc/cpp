@@ -16,6 +16,6 @@ $(OBJECTS): $(SOURCES)
 clean:
 	rm -rf *.o $(EXECUTABLE)
 
-testcase: input.txt
+testcase: ${INPUTFILE}
 	./${EXECUTABLE} < $<
 

@@ -14,11 +14,19 @@
 #define GRAPH_H
 #include <assert.h>
 #include <string>
+#include <vector>
 #include <iostream>
 #include <iomanip>
 
 namespace ALG
 {
+
+    class Edge
+    {
+        int source;
+        int target;
+
+    };
 
     template <class Type>
     class Graph
@@ -27,19 +35,22 @@ namespace ALG
             static const int MAX{20};
             int adjacencyMatrix[MAX][MAX];
             Type labels[MAX];
-            int numNodes{0};
+            std::vector<Edge*> edgeList;
+            int numNodes{0}, numEdges{0};
 
         public:
             Graph();
             ~Graph();
-            int size(); //Return the nuber of edges
-            int sizeMax(); //Return MAX
+            int size() const; //Return the number of nodes
+            int getNumEdges() const;
+            int sizeMax() const; //Return MAX
             void addNode(const Type& value);
-            void addEdge(Type& source, Type& target);
-            void addEdge(Type& source, Type& target, int weight);
-            int getIndex(const Type& value);
+            void addEdge(const Type& source, const Type& target);
+            void addEdge(const Type& source, const Type& target, int weight);
+            int getIndex(const Type& value) const;
             Type& operator [] (int node);
-            void printAdjMat();
+            void printAdjMat() const;
+            std::vector<int> outAdjacentNodes(const Type& v) const;
 
     };
 }
