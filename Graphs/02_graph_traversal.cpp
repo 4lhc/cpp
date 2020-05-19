@@ -1,20 +1,21 @@
-/*  
+/*
  *  02_graph_traversal.cpp
  *
  *  author : Sreejith S
  *  email  : echo $(base64 -d <<< NDQ0bGhjCg==)@gmail.com
  *  date   : Mon 18 May 2020 01:47:15 IST
- *  ver    : 
+ *  ver    :
  *
  *  Perform BFS and DFS graph traversal from a given vertex
- *   
+ *
  */
 
 #include <iostream>
 #include <string>
 #include <vector>
+#include <queue>
 #include <sstream>
-#include <assert.h>
+#include <cassert>
 #include "Graph.h"
 
 
@@ -38,12 +39,33 @@ void recursiveDFS(Graph<Type>& G, vector<char>& visited, int source)
 }
 
 
-//template <class Type>
-//void iterativeBFS(Graph<Type>& G, int source)
-//{
-    //std::queue
+template <class Type>
+void iterativeBFS(Graph<Type>& G, int source)
+{
+    int v;
+    std::queue<int> Q;
+    std::vector<char> visited(G.size(), 0);
+    Q.push(source);
+    visited[source] = 1;
+    while(!Q.empty())
+    {
+        v = Q.front();
+        Q.pop();
+        std::cout << "Exploring Node: " << G[v]<< std::endl;
+        std::vector<int> outAdj = G.outAdjacentNodes(G[v]);
+        for(auto& w : outAdj)
+        {
+            if(!visited[w])
+            {
+                Q.push(w);
+                visited[w] = 1;
+                std::cout << "Found Node: " << G[w]<< std::endl;
+            }
+        }
 
-//}
+    }
+
+}
 
 int main()
 {
@@ -69,9 +91,12 @@ int main()
     }
     G.printAdjMat();
 
-    std::cout << "Recursive DFS Search" << std::endl;
+    std::cout << "\n\nRecursive DFS Traversal" << std::endl;
     std::vector<char> visited(G.size(), 0); //to keep track of visited nodes
     recursiveDFS(G, visited, 0); //starting at node of index 0
+
+    std::cout << "\n\nIterative BFS Traversal" << std::endl;
+    iterativeBFS(G, 0);
 
     return 0;
 }
