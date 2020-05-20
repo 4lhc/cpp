@@ -23,7 +23,7 @@ using std::vector;
 using namespace ALG;
 
 
-template<class Type>
+template <class Type>
 void recursiveDFS(Graph<Type>& G, vector<char>& visited, int source)
 {
     //Args: Graph, visited, index of Source Node
