@@ -40,7 +40,7 @@ void isCyclic(Graph<Type>& G, vector<char>& color, map<int, int> parent_map,
         if (color[w] == 1 && w != parent) //Found a grey node - Cycle found!
         {
             int c_node, p_node;
-            std::cout << "Found Cycle: " << G[w] << "<-" << G[source];// << G[c_node] << "->" << G[p_node];
+            std::cout << "Found Cycle: " << G[w] << "<-" << G[source];
             c_node = source;
             p_node = -1;
             while (p_node != w)
